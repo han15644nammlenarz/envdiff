@@ -85,3 +85,12 @@ def test_lint_issue_str():
     assert "WARNING" in text
     assert "MY_KEY" in text
     assert "3" in text
+
+
+def test_lint_issue_str_error_severity():
+    """Ensure LintIssue.__str__ correctly uppercases the 'error' severity label."""
+    issue = LintIssue(line_number=1, key="BAD_KEY", message="something wrong", severity="error")
+    text = str(issue)
+    assert "ERROR" in text
+    assert "BAD_KEY" in text
+    assert "1" in text
