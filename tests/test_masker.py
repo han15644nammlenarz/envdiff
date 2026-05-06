@@ -27,6 +27,13 @@ def test_is_secret_key_custom_keywords():
     assert not is_secret_key("MY_CUSTOM_FIELD", keywords=["password"])
 
 
+def test_is_secret_key_case_insensitive():
+    """Keyword matching should be case-insensitive so mixed-case keys are caught."""
+    assert is_secret_key("db_password")
+    assert is_secret_key("DbPassword")
+    assert is_secret_key("githubToken")
+
+
 def test_mask_dict_replaces_secrets():
     env = {"APP_NAME": "myapp", "DB_PASSWORD": "s3cr3t", "PORT": "8080"}
     masked = mask_dict(env)
